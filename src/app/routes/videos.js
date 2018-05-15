@@ -1,7 +1,8 @@
 module.exports = function (application) {
     // Rota de Envio de Videos do Usuario
     application.post('/user/:idUser/videos', function (req, res) {
-
+        console.log('chegou aqui post');
+        application.app.controllers.videos.insertVideos(application, req, res);
     });
 
     // Rota para Retorno da Lista de Videos do Usuario

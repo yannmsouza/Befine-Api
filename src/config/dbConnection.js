@@ -1,21 +1,9 @@
 /* importar o mongodb */
-var mongo = require('mongodb');
 
-var connMongoDB = function () {
-    console.log('Entrou na função de conexão');
-    var db = new mongo.Db(
-        'befine',
-        new mongo.Server(
-            'localhost', //string contendo o endereço do servidor
-            27017, //porta de conexão
-            {}
-        ),
-        {}
-    );
+var mongoClient = require("mongodb").MongoClient;
+mongoClient.connect("mongodb://localhost/befine-api")
+    .then(conn => global.conn = conn.db("befine"))
+    .catch(err => console.log(err));
 
-    return db;
-}
 
-module.exports = function () {
-    return connMongoDB;
-}
+module.exports = { }
