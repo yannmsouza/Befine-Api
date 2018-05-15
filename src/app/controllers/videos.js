@@ -4,15 +4,16 @@ module.exports.insertVideos = function (application, req, res) {
     var date = new Date();
     timeStamp = date.getTime();
 
-    //    var urlVideo = timeStamp + '-' + req.files.arquivo.originalFilename;
+    var urlVideo = timeStamp + '-' + req.files.file.originalFilename;
 
-    // var pathOrigem = req.files.arquivo.path;
-    //  var pathDestino = '../../uploads/videos' + urlVideo;
+    var pathOrigem = req.files.file.path;
+    var pathDestino = '../../uploads/videos' + urlVideo;
 
     if (req.files) {
-        console.log(req.files.filename);
+        console.log(req.files);
     }
 
+    res.send(pathDestino);
 
 
 }
