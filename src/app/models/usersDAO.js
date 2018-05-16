@@ -1,3 +1,5 @@
+//var crypto = require('crypto');
+
 //Recebe a Referencia de Uma Conexao com o SGBD
 function usersDAO() {
 
@@ -16,6 +18,7 @@ function findUser(req, callback) {
 
 function insertUser(user, callback) {
     global.conn.collection('users').insert(user, callback);
+    console.log(user);
 }
 
 //Retorna todos os usuarios
@@ -55,7 +58,6 @@ usersDAO.prototype.registerUser = function (user, res) {
     });
 
 }
-
 
 module.exports = function () {
     return usersDAO;
