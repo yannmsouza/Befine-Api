@@ -1,27 +1,48 @@
 //Recebendo Arquivos via form-data
 module.exports.insertVideos = function (application, req, res) {
-    var fs = require('fs');
-    var date = new Date();
-    timeStamp = date.getTime();
-    var videosDAO = new application.app.models.videosDAO();
-
-    var urlVideo = timeStamp + '-' + req.files.file.originalFilename;
-
-    var pathOrigem = req.files.file.path;
-    var pathDestino = '../../uploads/videos' + urlVideo;
+    
+var path = require('path'),
+    os = require('os'),
+    fs = require('fs');
+var Busboy = require('busboy');
+var busboy = new Busboy({ headers: req.headers });
 
 
-    fs.rename(pathOrigem, pathDestino, function(err){
-        if(err){
-            res.status(500).json({error: err});
-            return;
-        }
+busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 
-        var dados = {
-            urlVideo: urlVideo,
-            titulo: req.body.titulo
-        }
-        videosDAO.insertVideos(dados, req, res);
-    });
+  console.log('Chega aqui!!!!');
+
+  var saveTo = path.join('uploads', path.basename(fieldname)+'.mp4');
+
+  console.log(saveTo);
+
+  file.pipe(fs.createWriteStream(saveTo));
+});
+
+busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
+  console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+});
+
+
+busboy.on('finish', function() {
+  res.writeHead(200, { 'Connection': 'close' });
+  res.end("That's all folks!!");
+});
+
+
+return req.pipe(busboy);
+  
+}
+
+module.exports.sendVideos =  function (application, req, res) {
+
+var path = require('path'),
+    os = require('os'),
+    fs = require('fs');
+    console.log('aqqui videos');
+
+    res.writeHead(200, { 'Content-Type': 'video/mp4' });
+    var rs = fs.createReadStream('uploads/file.mp4');  
+    rs.pipe(res);
 
 }

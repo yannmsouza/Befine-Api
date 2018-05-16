@@ -5,7 +5,14 @@ var express = require('express'),
     expressValidator = require('express-validator'),
     expressSession = require('express-session'),
     multiparty = require('connect-multiparty'),
+    uploadVideos = require("express-fileupload"),
+    multer = require('multer'),
+    http = require('http'),
+    path = require('path'),
+    os = require('os'),
+    Busboy = require('busboy'),
     fs = require('fs');
+
 
 
 global.db = require('./dbConnection');
@@ -45,11 +52,6 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
-
-
-
-
-
 
 
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
