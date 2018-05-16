@@ -12,7 +12,7 @@ function insert(dados, req, res, callback){
 		 		 	id_rotina : new objectID(),
 		 		 	titulo : dados.titulo,
 		 		 	passos : dados.passos,
-		 		 	urlRotina : dados.urlRotina
+		 		 	urlRotina : dados.urlRoutine
 		 		}
 		 	}
 		},
@@ -29,6 +29,7 @@ routinesDAO.prototype.insertRoutine = function (dados, req, res){
 	insert(dados, req, res, function (err, records){
 		if(err){
 			res.status(500).json({error: err});
+			return;
 		}else{
 			res.status(200).json({'status': 'successfull insertion', 'records': records});
 		}
