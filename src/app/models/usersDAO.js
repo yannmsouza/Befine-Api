@@ -1,4 +1,4 @@
-//var crypto = require('crypto');
+var crypto = require('crypto');
 
 //Recebe a Referencia de Uma Conexao com o SGBD
 function usersDAO() {
@@ -17,8 +17,10 @@ function findUser(req, callback) {
 
 
 function insertUser(user, callback) {
+    var senha_criptografada = crypto.createHash("md5").update(user.senha).digest('hex');
+    user.senha = senha_criptografada;
     global.conn.collection('users').insert(user, callback);
-    console.log(user);
+    //console.log(senha_criptografada);
 }
 
 //Retorna todos os usuarios
