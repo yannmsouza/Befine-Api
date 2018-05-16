@@ -2,14 +2,14 @@ function videosDAO() {
 
 }
 
-function insert(dados, req, res callback) {
+function insert(dados, req, res, callback) {
 	objectId = require('mongodb').ObjectId;
     global.conn.collection('users').update(
     	{_id: objectId(req.params.idUser)},
     	{ $push: {
     				videos : {
     					id_video : new objectId(),
-    					titulo: dados.titulo
+    					titulo: dados.titulo,
     					urlVideo: dados.urlVideo
     				}
 
@@ -31,3 +31,6 @@ videosDAO.prototype.insertVideo =  function (dados, req, res) {
 	});
 }
 
+module.exports = function () {
+    return videosDAO;
+}

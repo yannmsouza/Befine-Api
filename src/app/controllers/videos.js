@@ -11,7 +11,7 @@ module.exports.insertVideos = function (application, req, res) {
     var pathDestino = '../../uploads/videos' + urlVideo;
 
 
-    fs.rename(path_origem, path_destino, function(err){
+    fs.rename(pathOrigem, pathDestino, function(err){
         if(err){
             res.status(500).json({error: err});
             return;
