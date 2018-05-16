@@ -19,6 +19,14 @@ function insert(dados, req, res, callback) {
     	,callback);
 }
 
+//Retorna Informacoes de todos os Videos
+function returnVideos(idUser, req, res, callback) {
+	objectId = require('mongodb').ObjectId;
+    global.conn.collection('users').find(objectId(req.params.idUser)).toArray()
+    
+}
+
+
 videosDAO.prototype.insertVideo =  function (dados, req, res) {
 	insert(dados, req, res, function (err, records) {
 		if (err) {
